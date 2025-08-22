@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:1.25-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./_docker/nginx:/etc/nginx/conf.d:ro
+      - .:/var/www/html
+    depends_on:
+      app:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  app:
+    build:
+      context: .
+      dockerfile: _docker/Dockerfile
+      args:
+        USER_UID: ${USER_UID:-1000}
+        USER_GID: ${USER_GID:-1000}
+    user: "${USER_UID:-1000}:${USER_GID:-1000}"
+    volumes:
+      - .:/var/www/html
+      - ./_docker/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini:ro
+    healthcheck:
+      test: ["CMD-SHELL", "dockerize -wait tcp://localhost:9000 -timeout 30s || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    command: >
+      sh -c "dockerize
+        -wait tcp://db:3306
+        -timeout 90s
+        echo 'Все зависимости готовы!' &&
+        php-fpm -F"
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: rootpassword
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+      start_period: 10s
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+
+volumes:
+  mysql_data:
+
+networks:
+  app-network:
+    driver: bridge
