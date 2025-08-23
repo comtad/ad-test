@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ru',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'ruF',
 
     /*
     |--------------------------------------------------------------------------
@@ -106,7 +106,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'ru_RU',
 
     /*
     |--------------------------------------------------------------------------
@@ -161,6 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        SleepingOwl\Admin\Providers\SleepingOwlServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -189,7 +190,6 @@ return [
     */
 
     'aliases' => [
-
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
@@ -226,6 +226,16 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        //SO
+        'AdminSection'       => SleepingOwl\Admin\Facades\AdminSection::class,
+        'AdminDisplay'       => SleepingOwl\Admin\Facades\AdminDisplay::class,
+        'AdminColumn'        => SleepingOwl\Admin\Facades\AdminColumn::class,
+        'AdminColumnEditable'=> SleepingOwl\Admin\Facades\AdminColumnEditable::class,
+        'AdminColumnFilter'  => SleepingOwl\Admin\Facades\AdminColumnFilter::class,
+        'AdminForm'          => SleepingOwl\Admin\Facades\AdminForm::class,
+        'AdminFormElement'   => SleepingOwl\Admin\Facades\AdminFormElement::class,
+        'AdminWidget'        => SleepingOwl\Admin\Facades\AdminWidget::class,
 
     ],
 
