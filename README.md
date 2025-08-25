@@ -2,7 +2,7 @@
 
 ## Требования
 - Docker + Docker Compose v2
-- Docker for Linux (DFL) или Docker Desktop
+- Поддержка Makefile для удобства
 
 ## Запуск
 
