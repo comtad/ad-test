@@ -77,7 +77,6 @@ class TobaccoPostersSeeder extends Seeder
             }
             $brandDir = \Str::slug($brand);
 
-            // год
             $year = 1955;
             if (preg_match('/(19\d{2}|20\d{2})/u', $nameNoExt, $m)) {
                 $yy = (int) $m[1];

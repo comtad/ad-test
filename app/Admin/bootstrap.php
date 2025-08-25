@@ -1,15 +1,12 @@
 <?php
 
-// Категории
 \AdminSection::registerModel(\App\Category::class, function (\SleepingOwl\Admin\Model\ModelConfiguration $model) {
     $model->setTitle('Категории');
 
-    // Таблица
     $model->onDisplay(function () {
         return \App\Admin\Sections\Categories::display();
     });
 
-    // Формы
     $model->onCreate(function () {
         return \App\Admin\Sections\Categories::form();
     });
@@ -23,16 +20,13 @@
     $model->setIcon('fas fa-folder');
 });
 
-// Товары
 \AdminSection::registerModel(\App\Product::class, function (\SleepingOwl\Admin\Model\ModelConfiguration $model) {
     $model->setTitle('Товары');
 
-    // Таблица
     $model->onDisplay(function () {
         return \App\Admin\Sections\Products::display();
     });
 
-    // Формы
     $model->onCreate(function () {
         return \App\Admin\Sections\Products::form();
     });

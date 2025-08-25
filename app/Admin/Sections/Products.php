@@ -31,8 +31,7 @@ class Products
                 ->setDisplay('name')->required(),
 
             \AdminFormElement::text('name', 'Название')->required(),
-            \AdminFormElement::text('slug', 'Slug')
-                ->setHelpText('Пусто — сгенерится из названия'),
+            \AdminFormElement::text('slug', 'Slug'),
 
             \AdminFormElement::number('price', 'Цена')->setStep(0.01)->required(),
 

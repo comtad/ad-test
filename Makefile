@@ -1,28 +1,19 @@
 CURRENT_UID := $(shell id -u)
 CURRENT_GID := $(shell id -g)
-.PHONY: build up down restart
+
+.PHONY: build up down shell node-shell
 
 build:
-	docker-compose build --build-arg USER_UID=$(CURRENT_UID) --build-arg USER_GID=$(CURRENT_GID)
+	docker compose build --build-arg USER_UID=$(CURRENT_UID) --build-arg USER_GID=$(CURRENT_GID)
 
 up:
-	docker-compose up -d
+	docker compose up -d
 
 down:
-	docker-compose down
-
-restart: down up
-
-logs:
-	docker-compose logs -f
+	docker compose down
 
 shell:
-	docker-compose exec app bash
+	docker compose exec app bash
 
-migrate:
-	docker-compose exec app php artisan migrate
-
-optimize:
-	docker-compose exec app php artisan optimize
-
-keygen:
+node-shell:
+	docker compose exec node sh

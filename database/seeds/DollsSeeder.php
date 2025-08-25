@@ -49,7 +49,6 @@ class DollsSeeder extends Seeder
                 ? "Кукла {$titleStem} ({$year})"
                 : "Кукла {$titleStem}";
 
-            // >>> сохраняем в public/products
             $destRel = "products/dolls/{$filename}";
             $destAbs = public_path($destRel);
             @mkdir(dirname($destAbs), 0775, true);
@@ -68,7 +67,7 @@ class DollsSeeder extends Seeder
                     'name'        => $title,
                     'category_id' => $category->id,
                     'price'       => $price,
-                    'image'       => $destRel, // относительный путь от /public
+                    'image'       => $destRel,
                     'description' => $description,
                 ]
             );

@@ -57,7 +57,17 @@ services:
       retries: 15
       start_period: 10s
     ports:
-      - "3306:3306"   # оставь, если подключаешься с хоста
+      - "3306:3306"
+    networks: [app-network]
+
+  node:
+    image: node:14-alpine
+    working_dir: /var/www/html
+    user: "${USER_UID:-1000}:${USER_GID:-1000}"
+    volumes:
+      - .:/var/www/html
+    command: sh -c "tail -f /dev/null"
+    tty: true
     networks: [app-network]
 
 volumes:
